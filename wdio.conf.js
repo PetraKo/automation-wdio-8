@@ -43,7 +43,7 @@ export const config = {
             ]
         }
     }],
-    logLevel: 'info', //trace | debug | info | warn | error | silent
+    logLevel: 'silent', //trace | debug | info | warn | error | silent
     bail: 0,
     baseUrl: 'https://team8-2022brno.herokuapp.com/',
     waitforTimeout: 10000,
