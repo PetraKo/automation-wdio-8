@@ -1,3 +1,22 @@
+import fs from 'fs';
+
+const passedDirectory = 'screenshots/passed';
+const failedDirectory = 'screenshots/failed';
+
+function createIfNotExists(dir) {
+   if (!fs.existsSync(dir)) {
+       fs.mkdirSync(dir, { recursive: true });
+   }
+};
+
+
+function deleteFiles(dir) {
+    fs.rm(dir, { recursive: true }, err => {
+        if (err) console.log(err);
+    });
+}
+
+
 export const config = {
     runner: 'local',
     specs: [
@@ -28,7 +47,7 @@ export const config = {
         'goog:chromeOptions': {
             args: [
                 // '--window-size=1920,1080',
-                //'--headless',
+                '--headless',
                 '--no-sandbox',
                 '--disable-gpu',
                 '--disable-setuid-sandbox',
@@ -39,11 +58,11 @@ export const config = {
         "moz:firefoxOptions": {
             // flag to activate Firefox headless mode (see https://github.com/mozilla/geckodriver/blob/master/README.md#firefox-capabilities for more details about moz:firefoxOptions)
             args: [
-                // '-headless'
+                //'-headless'
             ]
         }
     }],
-    logLevel: 'silent', //trace | debug | info | warn | error | silent
+    logLevel: 'warn', //trace | debug | info | warn | error | silent
     bail: 0,
     baseUrl: 'https://team8-2022brno.herokuapp.com/',
     waitforTimeout: 10000,
@@ -58,5 +77,24 @@ export const config = {
     mochaOpts: {
         ui: 'bdd',
         timeout: 60000
+    },
+
+   /*
+    Definice potřebných hooků
+    */
+    
+    onPrepare: (config, capabilities) => {
+        deleteFiles("screenshots");
+    },
+
+    afterTest: (test, context, { error, result, duration, passed, retries }) => {
+        const screenshotName = (`${test.parent}__${test.title}.png`).replace(/ /g, '_');
+        if (passed === true) {
+            createIfNotExists(passedDirectory);
+            browser.saveScreenshot( `${passedDirectory}/${screenshotName}`);
+        } else {
+            createIfNotExists(failedDirectory);
+            browser.saveScreenshot(`${failedDirectory}/${screenshotName}`);
+        }
     }
 }
