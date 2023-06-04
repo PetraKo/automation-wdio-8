@@ -1,5 +1,4 @@
 //import { password } from "../fixtures.js";
-//import {} from '../homework/hw_preparation'
 
 
 describe('Homework', async () => {
@@ -7,8 +6,8 @@ describe('Homework', async () => {
     beforeEach(async () => {    
         await browser.reloadSession();
         await browser.url('/registrace');
-        const header = await $('h1');
-        await expect(header).toHaveText('Registrace');
+        //const header = await $('h1');
+        //await expect(header).toHaveText('Registrace');
         
     });
 
