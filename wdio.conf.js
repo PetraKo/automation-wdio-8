@@ -18,6 +18,7 @@ function deleteFiles(dir) {
 
 
 export const config = {
+   // automationProtocol: 'devtools',
     runner: 'local',
     specs: [
         './test/specs/*.e2e.js'
@@ -42,7 +43,7 @@ export const config = {
     maxInstances: 10,
     capabilities: [{
         maxInstances: 5,
-        browserName: 'edge',
+        browserName: 'chrome',
         acceptInsecureCerts: true,
         'goog:chromeOptions': {
             args: [
