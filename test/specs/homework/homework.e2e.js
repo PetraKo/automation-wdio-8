@@ -11,7 +11,7 @@ describe('Homework', async () => {
         
     });
 
-    it.only('should open registration page and check fields availability', async () => {
+    it('should open registration page and check fields availability', async () => {
 
         
         // Domácí úkol č. 1
@@ -23,19 +23,19 @@ describe('Homework', async () => {
          //Domácí úkol č. 2
          //Test č. 1 - Kontrola políček a tlačítek na stránce registrace a zjištění jejich dostupnosti
 
-        const nameField = await $('#nameField');
+        const nameField = await $('#name');
         await expect(nameField).toBeDisplayed();
         await expect(nameField).toBeEnabled();
 
-        const emailField = await $('#emailField');
+        const emailField = await $('#email');
         await expect(emailField).toBeDisplayed();
         await expect(emailField).toBeEnabled();
 
-        const passwordField = await $('#passwordField');
+        const passwordField = await $('#password');
         await expect(passwordField).toBeDisplayed();
         await expect(passwordField).toBeEnabled();
 
-        const confirmPasswordSelector = await $('#passwordField-confirm');
+        const confirmPasswordSelector = await $('#password-confirm');
         await expect(confirmPasswordSelector).toBeDisplayed();
         await expect(confirmPasswordSelector).toBeEnabled();
 
@@ -62,16 +62,16 @@ describe('Homework', async () => {
     });
 
         
-    it('should successfully register new user', async () => {
+    it.only('should successfully register new user', async () => {
 
-        const nameField = await $('#nameField');
-        const emailField = await $('#emailField');
-        const passwordField = await $('#passwordField');
-        const confirmPasswordField = await $('#passwordField-confirm');
+        const nameField = await $('#name');
+        const emailField = await $('#email');
+        const passwordField = await $('#password');
+        const confirmPasswordField = await $('#password-confirm');
         const registrationButton = await $('.btn-primary');
 
         const name = 'Petra Koliskova';
-        const email = 'petra123@seznam.cz';
+        const email = 'petra' + Math.floor((Math.random() * 100)) + '@seznam.cz';
         const password = 'Heslo123';
         
         // Domácí úkol č. 3
@@ -79,22 +79,22 @@ describe('Homework', async () => {
 
         await nameField.setValue(name);
         await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "nameField" tuto hodnotu: ' + await nameField.getValue());
+        console.log('Zapsal jsem do políčka "name" tuto hodnotu: ' + await nameField.getValue());
         await browser.pause(2000);
 
         await emailField.setValue(email);
         await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "emailField" tuto hodnotu: ' + await emailField.getValue());
+        console.log('Zapsal jsem do políčka "email" tuto hodnotu: ' + await emailField.getValue());
         await browser.pause(2000);
 
         await passwordField.setValue(password);
         await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "passwordField" tuto hodnotu: ' + await passwordField.getValue());
+        console.log('Zapsal jsem do políčka "password" tuto hodnotu: ' + await passwordField.getValue());
         await browser.pause(2000);
 
         await confirmPasswordField.setValue(password);
         await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "confirm passwordField" tuto hodnotu: ' + await confirmPasswordField.getValue());
+        console.log('Zapsal jsem do políčka "confirm password" tuto hodnotu: ' + await confirmPasswordField.getValue());
         await browser.pause(2000);
 
         await registrationButton.click();
@@ -109,10 +109,10 @@ describe('Homework', async () => {
 
     it('should try to register again already existing user', async () => {
 
-        const nameField = await $('#nameField');
-        const emailField = await $('#emailField');
-        const passwordField = await $('#passwordField');
-        const confirmPasswordField = await $('#passwordField-confirm');
+        const nameField = await $('#name');
+        const emailField = await $('#email');
+        const passwordField = await $('#password');
+        const confirmPasswordField = await $('#password-confirm');
         const registrationButton = await $('.btn-primary');
 
         const name = ('Petra Koliskova');
@@ -124,22 +124,22 @@ describe('Homework', async () => {
 
         await nameField.setValue(name);
         await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "nameField" tuto hodnotu: ' + await nameField.getValue());
+        console.log('Zapsal jsem do políčka "name" tuto hodnotu: ' + await nameField.getValue());
         await browser.pause(2000);
 
         await emailField.setValue(email);
         await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "emailField" tuto hodnotu: ' + await emailField.getValue());
+        console.log('Zapsal jsem do políčka "email" tuto hodnotu: ' + await emailField.getValue());
         await browser.pause(2000);
 
         await passwordField.setValue(password);
         await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "passwordField" tuto hodnotu: ' + await passwordField.getValue());
+        console.log('Zapsal jsem do políčka "password" tuto hodnotu: ' + await passwordField.getValue());
         await browser.pause(2000);
 
         await confirmPasswordField.setValue(password);
         await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "confirm passwordField" tuto hodnotu: ' + await confirmPasswordField.getValue());
+        console.log('Zapsal jsem do políčka "confirm password" tuto hodnotu: ' + await confirmPasswordField.getValue());
         await browser.pause(2000);
 
         await registrationButton.click();
@@ -160,14 +160,14 @@ describe('Homework', async () => {
 
     it('should try to register user with invalid passwordField format', async () => {
 
-        const nameField = await $('#nameField');
-        const emailField = await $('#emailField');
-        const passwordField = await $('#passwordField');
-        const confirmPasswordField = await $('#passwordField-confirm');
+        const nameField = await $('#name');
+        const emailField = await $('#email');
+        const passwordField = await $('#password');
+        const confirmPasswordField = await $('#password-confirm');
         const registrationButton = await $('.btn-primary');
 
         const name = ('Petra Koliskova');
-        const email = ('petra124@seznam.cz');
+        const email = 'petra' + Math.floor((Math.random() * 100)) + '@seznam.cz';
         const password = ('123');
         
         // Domácí úkol č. 4
@@ -175,22 +175,22 @@ describe('Homework', async () => {
 
         await nameField.setValue(name);
         await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "nameField" tuto hodnotu: ' + await nameField.getValue());
+        console.log('Zapsal jsem do políčka "name" tuto hodnotu: ' + await nameField.getValue());
         await browser.pause(2000);
 
         await emailField.setValue(email);
         await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "emailField" tuto hodnotu: ' + await emailField.getValue());
+        console.log('Zapsal jsem do políčka "email" tuto hodnotu: ' + await emailField.getValue());
         await browser.pause(2000);
 
         await passwordField.setValue(password);
         await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "passwordField" tuto hodnotu: ' + await passwordField.getValue());
+        console.log('Zapsal jsem do políčka "password" tuto hodnotu: ' + await passwordField.getValue());
         await browser.pause(2000);
 
         await confirmPasswordField.setValue(password);
         await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "confirm passwordField" tuto hodnotu: ' + await confirmPasswordField.getValue());
+        console.log('Zapsal jsem do políčka "confirm password" tuto hodnotu: ' + await confirmPasswordField.getValue());
         await browser.pause(2000);
 
         await registrationButton.click();
@@ -213,8 +213,8 @@ describe('Homework', async () => {
         //Odhlášení uživatele
 
         it('should logout', async () => {
-            const emailField = $('#emailField');
-            const passwordField = $('#passwordField');
+            const emailField = $('#email');
+            const passwordField = $('#password');
             const loginButton = $('.btn-primary');
             const navbarRight = $('.navbar-right')
             const userNameDropdown = navbarRight.$('[data-toggle="dropdown"]');
