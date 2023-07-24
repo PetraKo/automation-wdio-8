@@ -43,12 +43,12 @@ export const config = {
     maxInstances: 10,
     capabilities: [{
         maxInstances: 5,
-        browserName: 'edge',
+        browserName: 'chrome',
         acceptInsecureCerts: true,
         'goog:chromeOptions': {
             args: [
                 // '--window-size=1920,1080',
-                //'--headless',
+                '--headless',
                 '--no-sandbox',
                 '--disable-gpu',
                 '--disable-setuid-sandbox',

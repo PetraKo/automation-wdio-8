@@ -6,8 +6,6 @@ describe('Homework', async () => {
     beforeEach(async () => {    
         await browser.reloadSession();
         await browser.url('/registrace');
-        //const header = await $('h1');
-        //await expect(header).toHaveText('Registrace');
         
     });
 
@@ -43,26 +41,10 @@ describe('Homework', async () => {
         await expect(registrationButton).toBeDisplayed();
         await expect(registrationButton).toBeEnabled();
 
-        // console.log('Name field is displayed: ' + await nameField.isDisplayed());
-        // console.log('Name field is enabled: ' + await nameField.isEnabled());
-
-        // console.log('Email field is displayed: ' + await emailField.isDisplayed());
-        // console.log('Email field is enabled: ' + await emailField.isEnabled());
-
-        // console.log('Password field is displayed: ' + await passwordField.isDisplayed());
-        // console.log('Password field is enabled: ' + await passwordField.isEnabled());
-
-        // console.log('Confirm passwordField field is displayed: ' + await confirmPasswordField.isDisplayed());
-        // console.log('Confirm passwordField field is enabled: ' + await confirmPasswordField.isEnabled());
-
-        // console.log('Registration button is displayed: ' + await registrationButton.isDisplayed());
-        // console.log('Registration button is enabled: ' + await registrationButton.isEnabled());
-        
-
     });
 
         
-    it.only('should successfully register new user', async () => {
+    it('should successfully register new user', async () => {
 
         const nameField = await $('#name');
         const emailField = await $('#email');
@@ -78,36 +60,29 @@ describe('Homework', async () => {
         //Test č. 2 - Registrace nového uživatele do systému
 
         await nameField.setValue(name);
-        await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "name" tuto hodnotu: ' + await nameField.getValue());
-        await browser.pause(2000);
+        await expect(nameField).toHaveValue(name);
 
         await emailField.setValue(email);
-        await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "email" tuto hodnotu: ' + await emailField.getValue());
-        await browser.pause(2000);
+        await expect(emailField).toHaveValue(email);
 
         await passwordField.setValue(password);
-        await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "password" tuto hodnotu: ' + await passwordField.getValue());
-        await browser.pause(2000);
+        await expect(passwordField).toHaveValue(password);
 
         await confirmPasswordField.setValue(password);
-        await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "confirm password" tuto hodnotu: ' + await confirmPasswordField.getValue());
-        await browser.pause(2000);
+        await expect(confirmPasswordField).toHaveValue(password);
 
+        await registrationButton.isDisplayed();
         await registrationButton.click();
-       
+        
         const navbarRight = $('.navbar-right')
         const userNameDropdown = navbarRight.$('[data-toggle="dropdown"]');
-    
-        console.log('User currently logged in: ' + await userNameDropdown.getText());
+
+        await expect(userNameDropdown).toHaveText(name);
 
     });
     
 
-    it('should try to register again already existing user', async () => {
+    it('should try to register already existing user', async () => {
 
         const nameField = await $('#name');
         const emailField = await $('#email');
@@ -123,42 +98,38 @@ describe('Homework', async () => {
         //Test č. 3 - Registrace uživatele, který už v systému existuje
 
         await nameField.setValue(name);
-        await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "name" tuto hodnotu: ' + await nameField.getValue());
-        await browser.pause(2000);
+        await expect(nameField).toHaveValue(name);
 
         await emailField.setValue(email);
-        await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "email" tuto hodnotu: ' + await emailField.getValue());
-        await browser.pause(2000);
+        await expect(emailField).toHaveValue(email);
 
         await passwordField.setValue(password);
-        await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "password" tuto hodnotu: ' + await passwordField.getValue());
-        await browser.pause(2000);
+        await expect(passwordField).toHaveValue(password);
 
         await confirmPasswordField.setValue(password);
-        await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "confirm password" tuto hodnotu: ' + await confirmPasswordField.getValue());
-        await browser.pause(2000);
+        await expect(confirmPasswordField).toHaveValue(password);
 
+        await registrationButton.isDisplayed();
         await registrationButton.click();
 
         const toastTitle = await $('.toast-title');
         await toastTitle.waitForDisplayed();
-        console.log(await toastTitle.getText());
+        await expect (toastTitle).toBeDisplayed;
+        await expect(toastTitle).toHaveText('Špatně zadané pole');
 
         const toastMessage = await $('.toast-message');
         await toastMessage.waitForDisplayed();
-        console.log(await toastMessage.getText());
+        await expect (toastMessage).toBeDisplayed;
+        await expect(toastMessage).toHaveText('Některé pole obsahuje špatně zadanou hodnotu');
 
-        const invalidFeedbackSelector = await $('.invalid-feedback');
-        await invalidFeedbackSelector.waitForDisplayed();
-        console.log(await invalidFeedbackSelector.getText());
+        const invalidFeedback = await $('.invalid-feedback');
+        await invalidFeedback.waitForDisplayed();
+        await expect(invalidFeedback).toBeDisplayed();
+        await expect(invalidFeedback).toHaveText('Účet s tímto emailem již existuje');
 
     });
 
-    it('should try to register user with invalid passwordField format', async () => {
+    it('should try to register user with invalid password format', async () => {
 
         const nameField = await $('#name');
         const emailField = await $('#email');
@@ -174,65 +145,115 @@ describe('Homework', async () => {
         //Test č. 4 - Registrace uživatele, který zadá nevalidní formát hesla
 
         await nameField.setValue(name);
-        await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "name" tuto hodnotu: ' + await nameField.getValue());
-        await browser.pause(2000);
+        await expect(nameField).toHaveValue(name);
 
         await emailField.setValue(email);
-        await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "email" tuto hodnotu: ' + await emailField.getValue());
-        await browser.pause(2000);
+        await expect(emailField).toHaveValue(email);
 
         await passwordField.setValue(password);
-        await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "password" tuto hodnotu: ' + await passwordField.getValue());
-        await browser.pause(2000);
+        await expect(passwordField).toHaveValue(password);
 
         await confirmPasswordField.setValue(password);
-        await browser.pause(2000);
-        console.log('Zapsal jsem do políčka "confirm password" tuto hodnotu: ' + await confirmPasswordField.getValue());
-        await browser.pause(2000);
+        await expect(confirmPasswordField).toHaveValue(password);
 
+        await registrationButton.isDisplayed();
         await registrationButton.click();
 
         const toastTitle = await $('.toast-title');
         await toastTitle.waitForDisplayed();
-        console.log(await toastTitle.getText());
+        await expect (toastTitle).toBeDisplayed;
+        await expect(toastTitle).toHaveText('Špatně zadané pole');
 
         const toastMessage = await $('.toast-message');
         await toastMessage.waitForDisplayed();
-        console.log(await toastMessage.getText());
+        await expect (toastMessage).toBeDisplayed;
+        await expect(toastMessage).toHaveText('Některé pole obsahuje špatně zadanou hodnotu');
 
-        const invalidFeedbackSelector = await $('.invalid-feedback');
-        await invalidFeedbackSelector.waitForDisplayed();
-        console.log(await invalidFeedbackSelector.getText());
+        const invalidFeedback = await $('.invalid-feedback');
+        await invalidFeedback.waitForDisplayed();
+        await expect(invalidFeedback).toBeDisplayed();
+        await expect(invalidFeedback).toHaveText('Heslo musí obsahovat minimálně 6 znaků, velké i malé písmeno a číslici');
 
     });
 
-        //Domácí úkol č. 4
-        //Odhlášení uživatele
 
-        it('should logout', async () => {
+});
+
+describe('Log-in & Log-out', async () => {
+
+    beforeEach(async () => {    
+        await browser.reloadSession();
+        await browser.url('/prihlaseni');
+        
+    });
+    
+    //Přihlášení existujícího uživatele do systému
+       
+    it('Existing user should successfully log-in into the system', async () => {
+
+        const emailField = await $('#email');
+        const passwordField = await $('#password');
+        const loginButton = await $('.btn-primary');
+        const email = 'petra123@seznam.cz';
+        const password = 'Heslo123';
+        const name = 'Petra Koliskova';
+    
+
+        await emailField.setValue(email);
+        await expect(emailField).toHaveValue(email);
+        await passwordField.setValue(password);
+        await expect(passwordField).toHaveValue(password);
+
+        await expect(loginButton).toBeClickable();
+        await loginButton.click();
+       
+        const navbarRight = $('.navbar-right')
+        const userNameDropdown = navbarRight.$('[data-toggle="dropdown"]');
+
+        await expect(userNameDropdown).toHaveText(name);
+
+    });
+    
+    
+    //Odhlášení uživatele ze systému
+
+        it('User should be able to logout from the system', async () => {
+
             const emailField = $('#email');
             const passwordField = $('#password');
             const loginButton = $('.btn-primary');
             const navbarRight = $('.navbar-right')
             const userNameDropdown = navbarRight.$('[data-toggle="dropdown"]');
             const logoutLink = $('#logout-link');
+            const username = ('petra123@seznam.cz');
+            const password = ('Heslo123');
+            const name = 'Petra Koliskova';
+
+            //Přihlášení uživatele do systému
     
             await emailField.setValue(username);
-            await passwordField.setValue(passwordField);
-            await loginButton.click();
-    
-            console.log('User currently logged in: ' + await userNameDropdown.getText());
-    
-            await userNameDropdown.click();
-            await logoutLink.click();
-    
-            console.log('User is logged in: ' + await userNameDropdown.isDisplayed());
-            console.log('Navbar text: ' + await navbarRight.getText());
-        });
+            await expect(emailField).toHaveValue(username);
 
+            await passwordField.setValue(password);
+            await expect(passwordField).toHaveValue(password);
+
+            await expect(loginButton).toBeClickable();
+            await loginButton.click();
+            
+            await userNameDropdown.waitForDisplayed();
+            await expect(userNameDropdown).toHaveText(name);
+
+            //Odhlášení uživatele ze systému
+    
+            await expect(userNameDropdown).toBeClickable();
+            await userNameDropdown.click();
+            await expect(logoutLink).toBeClickable();
+            await logoutLink.click();
+
+            await expect(await userNameDropdown.isDisplayed()).toBeFalsy();
+            await expect(await navbarRight.getText()).toEqual('Přihlásit');
+
+        });
 
 
 });
